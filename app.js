@@ -2,6 +2,10 @@
 var express = require('express');
 var mongoose = require('mongoose');
 
+// Import Routes
+var appRoutes = require('./routes/app');
+var userRoutes = require('./routes/user');
+
 // Initialize variables
 var app = express();
 
@@ -15,12 +19,8 @@ mongoose.connection.openUri(
 );
 
 // Routes
-app.get('/', (request, response, next) => {
-  response.status(200).json({
-    ok: true,
-    message: 'Petición realizada correctamente'
-  });
-});
+app.use('/user', userRoutes);
+app.use('/', appRoutes);
 
 // Listen petitions
 app.listen(3000, () => {
